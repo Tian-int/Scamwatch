@@ -6,6 +6,10 @@ from sklearn.ensemble import RandomForestClassifier
 st.set_page_config(page_title="ScamWatch 🔍", layout="centered", initial_sidebar_state="collapsed")
 
 st.markdown("""
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+""", unsafe_allow_html=True)
+
+st.markdown("""
     <style>
       [data-testid="stAppViewContainer"] {
         background-color: #e9d1b9 !important;
