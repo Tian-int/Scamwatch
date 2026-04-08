@@ -140,7 +140,7 @@ st.divider()
 st.markdown("**📋 job description**")
 job_text = st.text_area("", height=180, placeholder="paste the posting here... sketchy ones welcome 👀")
 
-if st.button("⚡ analyze"):
+if st.button("🕵️ analyze"):
     if job_text.strip() == "":
         st.warning("paste something first!")
     else:
