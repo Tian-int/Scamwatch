@@ -32,8 +32,8 @@ st.markdown("""
         font-family: 'Inter', sans-serif;
     }
 
-    .stTextArea textarea {
-        background-color: #f5e6d8 !important;
+    stTextArea textarea {
+        background-color: #e9d1b9 !important;
         color: #3d2b1f !important;
         border: 2px solid #c4a882 !important;
         border-radius: 12px !important;
