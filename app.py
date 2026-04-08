@@ -3,70 +3,97 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.ensemble import RandomForestClassifier
 
-st.set_page_config(
-    page_title="ScamWatch",
-    page_icon="🔍",
-    layout="centered"
-)
+st.set_page_config(page_title="ScamWatch 🔍", layout="centered")
 
 st.markdown("""
     <style>
-    .main {
-        background-color: #0f0f0f;
-        color: white;
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600&display=swap');
+
+    html, body, [class*="css"] {
+        background-color: #e9d1b9 !important;
+        color: #3d2b1f !important;
+        font-family: 'Inter', sans-serif;
     }
-    .stTextArea textarea {
-        background-color: #1a1a1a;
-        color: white;
-        border: 1px solid #333;
-        border-radius: 10px;
-        font-size: 15px;
-    }
-    .stButton > button {
-        background-color: #6c63ff;
-        color: white;
-        border: none;
-        border-radius: 10px;
-        padding: 10px 30px;
-        font-size: 16px;
-        font-weight: bold;
-        width: 100%;
-        transition: 0.3s;
-    }
-    .stButton > button:hover {
-        background-color: #574fd6;
-        transform: scale(1.02);
-    }
-    .title {
-        font-size: 48px;
-        font-weight: 800;
-        color: #6c63ff;
+
+    .pixel-title {
+        font-family: 'Press Start 2P', monospace;
+        font-size: 28px;
+        color: #634c44;
         text-align: center;
-        margin-bottom: 0px;
+        margin-bottom: 6px;
+        line-height: 1.6;
     }
+
     .subtitle {
-        font-size: 16px;
-        color: #aaaaaa;
         text-align: center;
+        color: #7a5c4f;
+        font-size: 14px;
         margin-bottom: 30px;
+        font-family: 'Inter', sans-serif;
     }
-    .badge {
-        display: inline-block;
-        background-color: #1a1a1a;
-        border: 1px solid #333;
-        border-radius: 20px;
-        padding: 4px 14px;
-        font-size: 13px;
-        color: #aaa;
-        margin: 2px;
+
+    .stTextArea textarea {
+        background-color: #f5e6d8 !important;
+        color: #3d2b1f !important;
+        border: 2px solid #c4a882 !important;
+        border-radius: 12px !important;
+        font-family: 'Inter', sans-serif !important;
+        font-size: 14px !important;
     }
-    .result-box {
-        padding: 20px;
+
+    .stButton > button {
+        background-color: #634c44 !important;
+        color: #f5e6d8 !important;
+        border: none !important;
+        border-radius: 10px !important;
+        font-family: 'Press Start 2P', monospace !important;
+        font-size: 11px !important;
+        padding: 14px !important;
+        width: 100% !important;
+        transition: 0.2s !important;
+    }
+
+    .stButton > button:hover {
+        background-color: #4e3a33 !important;
+        transform: scale(1.02) !important;
+    }
+
+    [data-testid="metric-container"] {
+        background-color: #f5e6d8;
+        border: 2px solid #c4a882;
         border-radius: 12px;
+        padding: 12px;
         text-align: center;
-        font-size: 20px;
-        font-weight: bold;
-        margin-top: 20px;
+    }
+
+    [data-testid="stMetricLabel"] {
+        font-size: 11px !important;
+        color: #7a5c4f !important;
+        font-family: 'Press Start 2P', monospace !important;
+    }
+
+    [data-testid="stMetricValue"] {
+        font-size: 13px !important;
+        color: #634c44 !important;
+        font-weight: 600 !important;
+    }
+
+    .stAlert {
+        border-radius: 12px !important;
+        font-family: 'Inter', sans-serif !important;
+    }
+
+    hr {
+        border-color: #c4a882 !important;
+    }
+
+    .footer {
+        text-align: center;
+        color: #a07c6a;
+        font-size: 11px;
+        font-family: 'Press Start 2P', monospace;
+        margin-top: 10px;
+        line-height: 2;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -82,41 +109,36 @@ def train_model():
     model.fit(X, y)
     return model, vectorizer
 
-# Header
-st.markdown('<div class="title">🔍 ScamWatch</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitle">Fake Job Posting Detector for College Students</div>', unsafe_allow_html=True)
+st.markdown('<div class="pixel-title">🔍 ScamWatch</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitle">paste a job posting. find out if its a trap.</div>', unsafe_allow_html=True)
 
-# Stats row
-col1, col2, col3 = st.columns(3)
+col1, col2, col3 = st.columns([1,1,1])
 with col1:
-    st.metric("Dataset", "3,000+ postings")
+    st.metric("dataset", "3,000+ posts")
 with col2:
-    st.metric("Accuracy", "95%+")
+    st.metric("accuracy", "95%+")
 with col3:
-    st.metric("Built with", "Python + ML")
+    st.metric("model", "random forest")
 
 st.divider()
 
-# Input
-st.markdown("#### 📋 Paste a Job Description")
-job_text = st.text_area("", height=200, placeholder="e.g. Work from home! Earn ₹50,000/month. No experience needed. WhatsApp us now...")
+st.markdown("**📋 job description**")
+job_text = st.text_area("", height=180, placeholder="paste the posting here... sketchy ones welcome 👀")
 
-if st.button("🔍 Analyze Now"):
+if st.button("⚡ analyze"):
     if job_text.strip() == "":
-        st.warning("Please paste a job description first!")
+        st.warning("paste something first!")
     else:
-        with st.spinner("Analyzing..."):
+        with st.spinner("checking..."):
             model, vectorizer = train_model()
             transformed = vectorizer.transform([job_text])
             result = model.predict(transformed)[0]
-            probability = model.predict_proba(transformed)[0]
+            prob = model.predict_proba(transformed)[0]
 
         if result == 1:
-            st.error(f"🚨 RED FLAG — This looks like a SCAM! (Confidence: {probability[1]*100:.1f}%)")
-            st.markdown("**Common red flags detected:** vague roles, unrealistic pay, no company info, urgency tactics")
+            st.error(f"🚨 yeah that's a scam. ({prob[1]*100:.1f}% sure)")
         else:
-            st.success(f"✅ Looks Legit! (Confidence: {probability[0]*100:.1f}%)")
-            st.markdown("**Tip:** Always verify the company independently before applying!")
+            st.success(f"✅ looks legit! ({prob[0]*100:.1f}% sure)")
 
 st.divider()
-st.markdown('<div style="text-align:center; color:#555; font-size:13px;">Built by a first-year AI/DS student · ScamWatch 2024</div>', unsafe_allow_html=True)
+st.markdown('<div class="footer">built by a first year who got tired of fake internships 🍂</div>', unsafe_allow_html=True)
