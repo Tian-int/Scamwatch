@@ -3,10 +3,21 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.ensemble import RandomForestClassifier
 
-st.set_page_config(page_title="ScamWatch 🔍", layout="centered")
+st.set_page_config(page_title="ScamWatch 🔍", layout="centered", initial_sidebar_state="collapsed")
 
 st.markdown("""
     <style>
+      [data-testid="stAppViewContainer"] {
+        background-color: #e9d1b9 !important;
+    }
+
+    [data-testid="stHeader"] {
+        background-color: #e9d1b9 !important;
+    }
+
+    body {
+        background-color: #e9d1b9 !important;
+    }
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600&display=swap');
 
     html, body, [class*="css"] {
