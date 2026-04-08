@@ -28,7 +28,7 @@ st.markdown("""
 
     .pixel-title {
         font-family: 'Press Start 2P', monospace;
-        font-size: 28px;
+        font-size: 42px;
         color: #634c44;
         text-align: center;
         margin-bottom: 6px;
